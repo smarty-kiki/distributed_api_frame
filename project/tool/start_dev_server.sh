@@ -1,9 +1,27 @@
 #!/bin/bash
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"/../../
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"/../..
 
-sudo docker run --rm -ti -p 80:80 -p 3306:3306 --name api_frame \
-    -v $SCRIPT_DIR:/var/www/api_frame \
-    -v $SCRIPT_DIR/project/config/development/nginx/api_frame.conf:/etc/nginx/sites-enabled/default \
-    -v $SCRIPT_DIR/project/config/development/supervisor/queue_worker.conf:/etc/supervisor/conf.d/queue_worker.conf \
+DEP_FILE=$ROOT_DIR/dep_service_list
+if [ ! -f $DEP_FILE ]
+then
+    echo "DEP_FILE 不存在，检查 $DEP_FILE"
+    exit
+fi
+
+sh $ROOT_DIR/project/tool/dep_build.sh link
+
+DEP_SERVICE_VOLUMN=''
+while read line
+do
+    SERVICE_NAME=`echo $line | grep -v ^# | awk '{print $1}'`
+    if [ "$SERVICE_NAME" != "" ]
+    then
+        DEP_SERVICE_VOLUMN="$DEP_SERVICE_VOLUMN -v $ROOT_DIR/../$SERVICE_NAME:/var/www/$SERVICE_NAME"
+    fi
+done<$DEP_FILE
+
+sudo docker run --rm -ti -p 80:80 -p 3306:3306 --name distributed_api_frame \
+    -v $ROOT_DIR/:/var/www/distributed_api_frame $DEP_SERVICE_VOLUMN \
+    -v $ROOT_DIR/project/config/development/nginx/distributed_api_frame.conf:/etc/nginx/sites-enabled/default \
 kikiyao/debian_php_dev_env start

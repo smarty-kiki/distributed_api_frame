@@ -22,4 +22,3 @@ config_dir(ROOT_DIR.'/config');
 include ROOT_DIR.'/util/load.php';
 include DEP_DOMAIN_DIR.'/load.php';
 include DEP_CLIENT_DIR.'/load.php';
-include QUEUE_JOB_DIR.'/load.php';

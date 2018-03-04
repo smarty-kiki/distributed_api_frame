@@ -1,18 +1,18 @@
 https://dc.smarty.so {
     tls kiki@smarty.so
-    root /var/www/api_frame/public
+    root /var/www/distributed_api_frame/public
     fastcgi / /var/run/php-fpm.sock php
     rewrite / {
         regexp .*
         to /index.php{uri}
     }
     git {
-        repo https://github.com/smarty-kiki/api_frame.git
+        repo https://github.com/smarty-kiki/distributed_api_frame.git
         branch master
-        path /var/www/api_frame
+        path /var/www/distributed_api_frame
         interval 180
-        then ln -fs /var/www/api_frame/project/config/production/supervisor/queue_worker.conf /etc/supervisor/conf.d/queue_worker.conf
-        then ln -fs /var/www/api_frame/project/config/production/supervisor/caddy.conf /etc/supervisor/conf.d/caddy.conf
+        then ln -fs /var/www/distributed_api_frame/project/config/production/supervisor/queue_worker.conf /etc/supervisor/conf.d/queue_worker.conf
+        then ln -fs /var/www/distributed_api_frame/project/config/production/supervisor/caddy.conf /etc/supervisor/conf.d/caddy.conf
         then supervisorctl update
     }
 }
