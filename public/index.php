@@ -4,13 +4,16 @@ header('Access-Control-Allow-Origin: *');
 
 // init
 include __DIR__.'/../bootstrap.php';
-include FRAME_DIR.'/http/api.php';
+include FRAME_DIR.'/http/application.php';
 
 set_error_handler('http_err_action', E_ALL);
 set_exception_handler('http_ex_action');
 register_shutdown_function('http_fatel_err_action');
 
 if_has_exception(function ($ex) {
+    echo "<pre>";
+    var_dump($ex);
+
     return json([
         'succ' => false,
         'msg' => $ex->getMessage(),
@@ -18,20 +21,19 @@ if_has_exception(function ($ex) {
 });
 
 if_verify(function ($action, $args) {
-    return unit_of_work(function () use ($action, $args){
 
-        $data = call_user_func_array($action, $args);
+    $data = $action(...$args);
 
-        header('Content-type: application/json');
+    header('Content-type: application/json');
 
-        return json($data);
-    });
+    return json($data);
 });
 
 // init interceptor
 
 // init 404 handler
 if_not_found(function () {
+
     return json([
         'succ' => false,
         'msg' => '404 not found',

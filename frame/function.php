@@ -201,9 +201,9 @@ function aksort(&$array, $valrev = false, $keyrev = false)
  *
  * @param  dynamic  mixed
  */
-function dd()
+function dd(...$args)
 {/*{{{*/
-    array_map(function ($x) { var_dump($x); }, func_get_args());
+    var_dump(...$args);
     die;
 }/*}}}*/
 
@@ -305,12 +305,12 @@ function is_url($path)
  *
  * @return mixed
  */
-function config_dir($dir = '')
+function config_dir($dir = null)
 {/*{{{*/
-    static $container = null;
+    static $container = [];
 
-    if (is_null($container)) {
-        $container = $dir;
+    if (! is_null($dir)) {
+        $container[] = $dir;
     }
 
     return $container;
@@ -328,15 +328,23 @@ function config($key)
 {/*{{{*/
     static $configs = [];
 
-    if (empty($configs[$key])) {
+    if (! array_key_exists($key, $configs)) {
 
-        $dir = config_dir();
+        $directories = config_dir();
 
-        $configs[$key] = include $dir.'/'.$key.'.php';
+        $configs[$key] = [];
 
-        if (is_file($env_config_file = $dir.'/'.env().'/'.$key.'.php')) {
+        foreach ($directories as $dir) {
 
-            $configs[$key] = array_replace_recursive($configs[$key], include $env_config_file);
+            if (is_file($config_file = $dir.'/'.$key.'.php')) {
+
+                $configs[$key] = array_replace_recursive($configs[$key], include $config_file);
+            }
+
+            if (is_file($env_config_file = $dir.'/'.env().'/'.$key.'.php')) {
+
+                $configs[$key] = array_replace_recursive($configs[$key], include $env_config_file);
+            }
         }
     }
 
@@ -386,9 +394,9 @@ function not_empty($mixed)
  *
  * @return mixed
  */
-function all_not_empty()
+function all_not_empty(...$args)
 {/*{{{*/
-    foreach (func_get_args() as $arg) {
+    foreach ($args as $arg) {
 
         if (empty($arg)) return false;
     }
@@ -403,9 +411,9 @@ function all_not_empty()
  *
  * @return mixed
  */
-function has_empty()
+function has_empty(...$args)
 {/*{{{*/
-    foreach (func_get_args() as $arg) {
+    foreach ($args as $arg) {
 
         if (empty($arg)) return true;
     }

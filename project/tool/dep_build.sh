@@ -40,10 +40,10 @@ function dep_build_file
     checkout_branch $SERVICE_TMP_DIR $BRANCH
 
     cp -r $SERVICE_TMP_DIR/client $DEP_CLIENT_DIR/$SERVICE_NAME
-    echo "include __DIR__.'/$SERVICE_NAME/client.php';" >> $DEP_CLIENT_DIR/load.php
+    echo "include __DIR__.'/$SERVICE_NAME/load.php';" >> $DEP_CLIENT_DIR/load.php
 
     cp -r $SERVICE_TMP_DIR/domain $DEP_DOMAIN_DIR/$SERVICE_NAME
-    echo "include __DIR__.'/$SERVICE_NAME/autoload.php';" >> $DEP_DOMAIN_DIR/load.php
+    echo "include __DIR__.'/$SERVICE_NAME/load.php';" >> $DEP_DOMAIN_DIR/load.php
 
     rm -rf $SERVICE_TMP_DIR
 }
@@ -61,10 +61,10 @@ function dep_build_link
     checkout_branch $SERVICE_TMP_DIR $BRANCH
 
     ln -fs `get_relative_path $SERVICE_TMP_DIR/client $DEP_CLIENT_DIR` $DEP_CLIENT_DIR/$SERVICE_NAME
-    echo "include __DIR__.'/$SERVICE_NAME/client.php';" >> $DEP_CLIENT_DIR/load.php
+    echo "include __DIR__.'/$SERVICE_NAME/load.php';" >> $DEP_CLIENT_DIR/load.php
 
     ln -fs `get_relative_path $SERVICE_TMP_DIR/domain $DEP_DOMAIN_DIR` $DEP_DOMAIN_DIR/$SERVICE_NAME
-    echo "include __DIR__.'/$SERVICE_NAME/autoload.php';" >> $DEP_DOMAIN_DIR/load.php
+    echo "include __DIR__.'/$SERVICE_NAME/load.php';" >> $DEP_DOMAIN_DIR/load.php
 }
 
 # ------------------ start --------------------
