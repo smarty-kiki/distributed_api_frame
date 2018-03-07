@@ -30,6 +30,28 @@ function git_clone
     git clone $1 $2 || (echo "获取项目 $3 失败" && exit)
 }
 
+function dep_frame_file
+{
+    git_clone $FRAME_REPOSITORY $FRAME_DIR frame
+    checkout_branch $FRAME_DIR $BRANCH
+
+    add_gitignore '/frame'
+}
+
+function dep_frame_link
+{
+    FRAME_TMP_DIR=$ROOT_DIR/../frame
+
+    if [ ! -d $FRAME_TMP_DIR ]
+    then
+        git_clone $FRAME_REPOSITORY $FRAME_TMP_DIR frame
+    fi
+    checkout_branch $FRAME_TMP_DIR $BRANCH
+
+    ln -fs ../frame $FRAME_DIR
+    add_gitignore '/frame'
+}
+
 function dep_build_file
 {
     SERVICE_NAME=$1
@@ -86,6 +108,13 @@ fi
 BRANCH=$2
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"/../..
+
+# ------------------ add frame ------------------
+FRAME_DIR=$ROOT_DIR/frame
+FRAME_REPOSITORY=https://github.com/smarty-kiki/frame.git
+
+rm -rf $FRAME_DIR
+dep_frame_$TYPE
 
 # ------------------ add depend ------------------
 DEP_CLIENT_DIR=$ROOT_DIR/dep_client

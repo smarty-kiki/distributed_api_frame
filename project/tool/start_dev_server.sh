@@ -11,7 +11,7 @@ fi
 
 sh $ROOT_DIR/project/tool/dep_build.sh link
 
-DEP_SERVICE_VOLUMN=''
+DEP_SERVICE_VOLUMN="-v $ROOT_DIR/../frame:/var/www/frame"
 while read line
 do
     SERVICE_NAME=`echo $line | grep -v ^# | awk '{print $1}'`
