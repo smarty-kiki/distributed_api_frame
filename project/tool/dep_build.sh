@@ -117,6 +117,13 @@ rm -rf $FRAME_DIR
 dep_frame_$TYPE
 
 # ------------------ add depend ------------------
+DEP_FILE=$ROOT_DIR/dep_service_list
+if [ ! -f $DEP_FILE ]
+then
+    echo "DEP_FILE 不存在，检查 $DEP_FILE"
+    exit
+fi
+
 DEP_CLIENT_DIR=$ROOT_DIR/dep_client
 DEP_DOMAIN_DIR=$ROOT_DIR/dep_domain
 
@@ -130,15 +137,7 @@ do
     add_gitignore $d
 done
 
-DEP_FILE=$ROOT_DIR/dep_service_list
-if [ ! -f $DEP_FILE ]
-then
-    echo "DEP_FILE 不存在，检查 $DEP_FILE"
-    exit
-fi
-
 cat $DEP_FILE | grep -v ^# | while read arg
 do
     dep_build_$TYPE $arg
 done
-
