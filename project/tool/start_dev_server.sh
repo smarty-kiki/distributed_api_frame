@@ -49,7 +49,7 @@ do
     fi
 done<$DEP_CLI_FILE
 
-sudo docker run --rm -ti -p 80:80 -p 3306:3306 --name distributed_api_frame \
+sudo docker run --rm -ti -p 80:80 --name distributed_api_frame \
     $LINK $DEP_VOLUMN \
     -v $ROOT_DIR/:/var/www/distributed_api_frame \
     -v $ROOT_DIR/project/config/development/nginx/distributed_api_frame.conf:/etc/nginx/sites-enabled/default \
