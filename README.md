@@ -25,7 +25,7 @@
 │       └── start_dev_server.sh (快速启动开发环境的脚本，基于 docker)  
 ├── public (入口文件目录)  
 │   └── index.php (web 请求入口文件)  
-├── util (工具类文件目录)    
+├── util (工具类文件目录)  
 │   └── load.php (工具类加载文件)  
 ├── dep_service_list (在此文件中声明所依赖的 service 项目，由 dep_build.sh 加载进代码中)  
 ├── dep_client (该文件夹及内容由 dep_build.sh 基于 dep_service_list 加载依赖项目生成，存放依赖 service 的 client)  
