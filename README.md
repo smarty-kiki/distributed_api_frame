@@ -14,14 +14,14 @@
 │   ├── config (配置文件目录)  
 │   │   ├── development (开发环境)  
 │   │   │   └── nginx (nginx 配置)  
-│   │   │       └── distributed_api_frame.conf (框架推荐的 nginx 配置)  
-│   │   └── production (线上环境)   
-│   │       └── nginx  
-│   │           └── distributed_api_frame.conf  
+│   │   │       └── distributed_api_frame.conf (框架推荐的 nginx 配置)  
+│   │   └── production (线上环境)  
+│   │       └── nginx  
+│   │           └── distributed_api_frame.conf  
 │   └── tool (工具脚本目录)  
 │       ├── classmap.sh (生成 ORM load 文件)  
 │       ├── dep_build.sh (加载依赖 service、client 的脚本)  
-│       ├── naming_project.sh (快速修改本项目中的 nginx、supervisor 等配置中与项目目录有关的项目名称方便创建新项目使用)  
+│       ├── naming_project.sh (快速修改本项目中的 nginx、supervisor 等配置中与项目目录有关的项目名称方便创建新项目使用)  
 │       └── start_dev_server.sh (快速启动开发环境的脚本，基于 docker)  
 ├── public (入口文件目录)  
 │   └── index.php (web 请求入口文件)  
