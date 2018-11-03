@@ -11,8 +11,8 @@ set_exception_handler('http_ex_action');
 register_shutdown_function('http_fatel_err_action');
 
 if_has_exception(function ($ex) {
-    echo "<pre>";
-    var_dump($ex);
+
+    log_exception($ex);
 
     return json([
         'succ' => false,
