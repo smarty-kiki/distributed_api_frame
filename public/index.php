@@ -14,6 +14,8 @@ if_has_exception(function ($ex) {
 
     log_exception($ex);
 
+    header('Content-type: application/json');
+
     return json([
         'succ' => false,
         'msg' => $ex->getMessage(),
@@ -33,7 +35,6 @@ if_verify(function ($action, $args) {
 
 // init 404 handler
 if_not_found(function () {
-
     return json([
         'succ' => false,
         'msg' => '404 not found',

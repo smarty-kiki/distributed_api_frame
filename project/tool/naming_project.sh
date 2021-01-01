@@ -10,11 +10,11 @@ if [ ! -n "$1" ] ;then
     exit
 fi
 
-ROOT_DIR="$(cd "$(dirname $0)" && pwd)"/../../
+ROOT_DIR="$(cd "$(dirname $0)" && pwd)"/../..
 
 mv $ROOT_DIR/project/config/development/nginx/distributed_api_frame.conf $ROOT_DIR/project/config/development/nginx/$1.conf
 mv $ROOT_DIR/project/config/production/nginx/distributed_api_frame.conf $ROOT_DIR/project/config/production/nginx/$1.conf
 
 sed_name $ROOT_DIR/project/config/development/nginx/$1.conf $1
 sed_name $ROOT_DIR/project/config/production/nginx/$1.conf $1
-sed_name $ROOT_DIR/project/tool/start_dev_server.sh $1
+sed_name $ROOT_DIR/project/tool/start_development_server.sh $1

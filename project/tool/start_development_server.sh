@@ -53,5 +53,8 @@ sudo docker run --rm -ti -p 80:80 --name distributed_api_frame \
     $LINK $DEP_VOLUMN \
     -v $ROOT_DIR/:/var/www/distributed_api_frame \
     -v $ROOT_DIR/project/config/development/nginx/distributed_api_frame.conf:/etc/nginx/sites-enabled/default \
+    -e 'PRJ_HOME=/var/www/distributed_api_frame' \
+    -e 'ENV=development' \
     -e 'TIMEZONE=Asia/Shanghai' \
+    -e 'AFTER_START_SHELL=/var/www/distributed_api_frame/project/tool/development/after_env_start.sh' \
 kikiyao/debian_php_dev_env start

@@ -1,4 +1,5 @@
-/dep_client
-/dep_domain
-/dep_queue_job
 /frame
+/dep_queue_job
+/dep_domain
+/dep_client
+
